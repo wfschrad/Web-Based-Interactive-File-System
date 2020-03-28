@@ -1,0 +1,71 @@
+#fileSystem {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+#fileTree {
+    grid-column-start: 1;
+}
+.tree-entry {
+    display: grid;
+    grid-template-columns: 18px 18px 1fr 75px;
+    justify-content: space-between;
+    padding-left: 25px;
+    position: relative;
+    margin-left: 8px;
+    margin-top: 8px;
+}
+.tree-entry__icon{
+  grid-column-start: 2;
+}
+.tree-entry__name{
+  grid-column-start: 3;
+  width: 180px
+}
+.tree-entry__time {
+    grid-column-start: 4;
+    text-align: right;
+}
+#fileSystem__content {
+    grid-column-start: 2;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+
+img {
+    height: 16px;
+    width: auto;
+}
+.tree-entry__disclosure--closed::before{
+  grid-column-start: 1;
+  font-size: 12px;
+  content: '\25B6';
+}
+.tree-entry__disclosure--opened::before{
+  grid-column-start: 1;
+  font-size: 12px;
+  content: '\25BC';
+}
+.tree-entry__disclosure--disabled::before{
+  display: none;
+}
+
+
+.overlay {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.6);
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    justify-content: center;
+    align-items: center;
+  }
+  .overlay--hidden {
+      display: none;
+  }
+  #load {
+      font-size: 48px;
+      font-weight: bold;
+  }
