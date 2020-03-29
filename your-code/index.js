@@ -32,12 +32,13 @@ fileTree.addEventListener('click', event=>{
     if (classes.contains('tree-entry__disclosure') && !classes.contains('tree-entry__disclosure--disabled')) {
         classes.toggle('tree-entry__disclosure--closed');
         classes.toggle('tree-entry__disclosure--opened')
+        console.log("parentNode: ", parentNode);
 
-        
-        console.log(directoryName)
+        const targetUL = treeEntry.querySelector('ul');
         if(classes.contains('tree-entry__disclosure--opened')){
             treeEntry.querySelector('img').setAttribute('src', `/icons/folder_type_${parentNode.getIconTypeName()}_opened.svg`)
-
+            if (targetUL) targetUL.style.display = 'block';
+            else {
                 fetch(`http://localhost:3001/api/path/${directoryName}`)
                 .then(res=>res.json())
                 .then(data=>{
@@ -49,15 +50,15 @@ fileTree.addEventListener('click', event=>{
                     console.log(data)
                     updateVisualTree(treeEntry, parentNode);
                 })
-
+            }
 
         }
         else {
             //delete
             treeEntry.querySelector('img').setAttribute('src', `/icons/folder_type_${parentNode.getIconTypeName()}.svg`)
-
-            parentNode.children = [];
-            treeEntry.querySelector('ul').remove()
+            targetUL.style.display = 'none';
+            // parentNode.children = [];
+            // treeEntry.querySelector('ul').remove()
         }
     }
     if (classes.contains('tree-entry__name') && (parentNode.type === 'file')) {
@@ -79,7 +80,7 @@ function findNode(pathArr, node) {
                 pathArr.shift();
                 return findNode(pathArr, child);
             }
-        }  
+        }
     }
 }
 
@@ -91,7 +92,7 @@ function updateVisualTree(element, directoryTreeNode) {
     }
     element.appendChild(ul);
 }
-    
+
     function updateVisualTreeEntry(treeElement, child) {
     const li = document.createElement('li');
         li.dataset.pathName = `${child.getFullPath()}`
